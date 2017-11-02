@@ -68,11 +68,12 @@ public class NoteServlet extends HttpServlet {
 
                 int selectedNoteId = Integer.parseInt(request.getParameter("selectedNoteId"));
                 service.delete(selectedNoteId);
-            } else if (action.equals("edit")) {
+            } else if (action.equals("edit") && !contents.equals("") && contents != null) {
                 service.update(noteIdInt, contents);
-            } else if (action.equals("add")) {
+            } else if (action.equals("add") && !contents.equals("") && contents != null) {
                 service.insert(contents);
             }
+            else request.setAttribute("errorMessage", "Please enter something into the comment field.");
         } catch (Exception ex) {
             request.setAttribute("errorMessage", "Whoops.  Could not perform that action.");
         }
